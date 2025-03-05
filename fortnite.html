@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortnite - Coupes et Cartes</title>
+    
+    <!-- Favicon ajouté ici -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100' height='100'%3E%3Crect width='100' height='100' rx='20' fill='url(%23grad)'/%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%236a11cb;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%232575fc;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='50' font-weight='bold'%3EF%3C/text%3E%3C/svg%3E">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: #ffffff;
+        }
+        .custom-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="font-sans" x-data="{ 
+    selectedCup: null, 
+    activeTab: 'cups',
+    selectedImage: null,
+    fortniteCartes: [
+        { name: 'Carte Chapitre 4', image: 'https://pbs.twimg.com/media/FjHqjn8XwAAJKhx.jpg:large', description: 'Dernière carte majeure de Fortnite' },
+        { name: 'Carte Chapitre 3', image: 'https://static.wikia.nocookie.net/fortnite/images/a/a4/Fortnite_-_Carte_Chapitre_3_19.20.jpg/revision/latest?cb=20220207081616&path-prefix=fr', description: 'Carte précédente avec de nombreux points d\'intérêt' },
+        { name: 'Carte Originale', image: 'https://gamewave.fr/static/images/news/headers/f348b-map-BR.webp', description: 'La carte qui a lancé Fortnite Battle Royale' }
+    ]
+}">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Nouvelle barre de navigation avec logo -->
+        <div class="flex items-center justify-between mb-10">
+            <div class="custom-logo">
+                F
+            </div>
+            <h1 class="text-4xl font-bold text-center text-yellow-400">Fortnite - Coupes et Cartes</h1>
+            <div><!-- Espace pour menu ou autres éléments --></div>
+        </div>
+        
+        <!-- Tabs -->
+        <div class="flex justify-center mb-8">
+            <button 
+                @click="activeTab = 'cups'" 
+                :class="activeTab === 'cups' ? 'bg-yellow-500 text-blue-900' : 'bg-blue-700 text-white'"
+                class="px-6 py-2 mx-2 rounded-full transition"
+            >
+                Coupes
+            </button>
+            <button 
+                @click="activeTab = 'cartes'" 
+                :class="activeTab === 'cartes' ? 'bg-yellow-500 text-blue-900' : 'bg-blue-700 text-white'"
+                class="px-6 py-2 mx-2 rounded-full transition"
+            >
+                Cartes
+            </button>
+        </div>
+
+        <!-- Contenu des Coupes -->
+        <div x-show="activeTab === 'cups'" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div 
+                class="bg-blue-900 rounded-lg p-6 shadow-lg transform transition hover:scale-105 cursor-pointer"
+                @click="selectedCup = 'FNCS'"
+                :class="{'border-4 border-yellow-500': selectedCup === 'FNCS'}"
+            >
+                <img src="https://cdn2.unrealengine.com/26comp-fncs-gc-in-game-poster-front-750x1080-0404c60b4fdc.jpg" alt="FNCS" class="w-full h-47 object-cover rounded-lg mb-4">
+                <h2 class="text-2xl font-semibold mb-4 text-yellow-300">FNCS</h2>
+                <p class="mb-4">La compétition majeure de Fortnite, divisée en plusieurs saisons.</p>
+                <button 
+                    class="bg-yellow-500 text-blue-900 px-4 py-2 rounded-full hover:bg-yellow-400 transition"
+                    @click.stop="selectedCup = 'FNCS'"
+                >
+                    Plus de détails
+                </button>
+            </div>
+
+            <div 
+                class="bg-blue-900 rounded-lg p-6 shadow-lg transform transition hover:scale-105 cursor-pointer"
+                @click="selectedCup = 'CashCup'"
+                :class="{'border-4 border-yellow-500': selectedCup === 'CashCup'}"
+            >
+                <img src="https://cdn2.unrealengine.com/23comp-evergreens-ingame-black-poster-front-750x1080-14c7fa95090e.jpg" alt="Cash Cup" class="w-full h-47 object-cover rounded-lg mb-4">
+                <h2 class="text-2xl font-semibold mb-4 text-yellow-300">Cup performances</h2>
+                <p class="mb-4">Tournoi régulier avec gains en argent.</p>
+                <button 
+                    class="bg-yellow-500 text-blue-900 px-4 py-2 rounded-full hover:bg-yellow-400 transition"
+                    @click.stop="selectedCup = 'CashCup'"
+                >
+                    Plus de détails
+                </button>
+            </div>
+
+            <div 
+                class="bg-blue-900 rounded-lg p-6 shadow-lg transform transition hover:scale-105 cursor-pointer"
+                @click="selectedCup = 'SoloCashCup'"
+                :class="{'border-4 border-yellow-500': selectedCup === 'SoloCashCup'}"
+            >
+                <img src="https://liquipedia.net/commons/images/thumb/1/18/Fortnite_Season_OG_Solo_Victory_Cash_Cup.png/600px-Fortnite_Season_OG_Solo_Victory_Cash_Cup.png" alt="Solo Cash Cup" class="w-full h-47 object-cover rounded-lg mb-4">
+                <h2 class="text-2xl font-semibold mb-4 text-yellow-300">Solo Cash Cup</h2>
+                <p class="mb-4">Compétition individuelle avec gains.</p>
+                <button 
+                    class="bg-yellow-500 text-blue-900 px-4 py-2 rounded-full hover:bg-yellow-400 transition"
+                    @click.stop="selectedCup = 'SoloCashCup'"
+                >
+                    Plus de détails
+                </button>
+            </div>
+        </div>
+
+        <!-- Contenu des Cartes -->
+        <div x-show="activeTab === 'cartes'" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <template x-for="carte in fortniteCartes" :key="carte.name">
+                <div class="bg-blue-900 rounded-lg p-6 shadow-lg transform transition hover:scale-105">
+                    <img 
+                        :src="carte.image" 
+                        :alt="carte.name" 
+                        class="w-full h-48 object-cover rounded-lg mb-4 cursor-pointer"
+                        @click="selectedImage = carte.image"
+                    >
+                    <h2 class="text-2xl font-semibold mb-4 text-yellow-300" x-text="carte.name"></h2>
+                    <p x-text="carte.description" class="mb-4"></p>
+                </div>
+            </template>
+        </div>
+
+        <!-- Modal de détails des Coupes -->
+        <div 
+            x-show="selectedCup" 
+            x-transition 
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+            @click.self="selectedCup = null"
+        >
+            <div class="bg-blue-800 rounded-lg p-8 max-w-lg w-full">
+                <div x-show="selectedCup === 'FNCS'">
+                    <h2 class="text-3xl font-bold mb-4 text-yellow-300">FNCS (Fortnite Champion Series, 3 Majors)</h2>
+                    <div class="space-y-4">
+                        <p>Compétition officielle de plus haut niveau, avec des prix en argent importants et une reconnaissance mondiale.</p>
+                        <div class="bg-blue-700 p-4 rounded-lg">
+                            <h3 class="font-bold text-yellow-300 mb-2">🏆 Cash Prizes</h3>
+							<p>💰 Prize Pool Total : 5 000 000€</p>
+                            <p>🥇 1ère Place : 60 000€</p>
+                            <p>🥈 Top 10 : 40 000€ - 11 600€</p>
+                            <p>🥉 Top 25 : 5 800€ - 1 450€</p>
+                        </div>
+                        <div class="bg-blue-700 p-4 rounded-lg">
+                            <h3 class="font-bold text-yellow-300 mb-2">🏅 Points de Classement (PR)</h3>
+                            <p>1ère Place : 10 000 PR</p>
+                            <p>Top 10 : 9 000-6 250 PR</p>
+                            <p>Top 33 : 6 250-4 530 PR</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div x-show="selectedCup === 'CashCup'">
+                    <h2 class="text-3xl font-bold mb-4 text-yellow-300">Cup Performence</h2>
+                    <div class="space-y-4">
+                        <p>Tournoi régulier permettant aux joueurs de gagner de l'argent selon leurs performances en Battle Royale.</p>
+                        <div class="bg-blue-700 p-4 rounded-lg">
+                            <h3 class="font-bold text-yellow-300 mb-2">🏆 Cash Prizes</h3>
+							<p>💰 Prize Pool Total : 1 600€</p>
+                            <p>🥇 Earned 100 points : 400 €</p>
+                            <p>🥈 Earned 200 points : 800€</p>
+                            <p>🥉 Earned 300 points : 1 200€</p>
+							<p>🏅 Earned 400 points : 1 600€</p>
+                        </div>
+                        <div class="bg-blue-700 p-4 rounded-lg">
+                            <h3 class="font-bold text-yellow-300 mb-2">🏅 Points de Classement (PR)</h3>
+                            <p>1ère Place : 1000 PR</p>
+                            <p>Top 10 : 900-625 PR</p>
+                            <p>Top 25 : 500 PR</p>
+							<p>Top 50 : 350 PR</p>
+							<p>Top 75 : 300 PR</p>
+							<p>Top 100 : 225 PR</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div x-show="selectedCup === 'SoloCashCup'">
+                    <h2 class="text-3xl font-bold mb-4 text-yellow-300">Solo Cash Cup</h2>
+                    <div class="space-y-4">
+                        <p>Compétition individuelle où chaque joueur montre ses compétences personnelles.</p>
+                        <div class="bg-blue-700 p-4 rounded-lg">
+                            <h3 class="font-bold text-yellow-300 mb-2">🏆 Cash Prizes</h3>
+							<p>💰 Prize Pool Total : 25 000€</p>
+                            <p>🥇 1ère Place : 8 000€</p>
+                            <p>🥈 Top 10 : 4 800€ - 1 280€</p>
+                            <p>🥉 Top 25 : 1 280€ - 160€</p>
+                        </div>
+                        <div class="bg-blue-700 p-4 rounded-lg">
+                            <h3 class="font-bold text-yellow-300 mb-2">🏅 Points de Classement (PR)</h3>
+                            <p>1ère Place : 1000 PR</p>
+                            <p>Top 10 : 625 PR</p>
+                            <p>Top 25 : 500 PR</p>
+							<p>Top 50 : 350 PR</p>
+							<p>Top 75 : 300 PR</p>
+							<p>Top 100 : 225 PR</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button 
+                    @click="selectedCup = null" 
+                    class="mt-6 bg-yellow-500 text-blue-900 px-4 py-2 rounded-full hover:bg-yellow-400 transition"
+                >
+                    Fermer
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal Image Agrandi -->
+        <div 
+            x-show="selectedImage" 
+            x-transition 
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+            @click.self="selectedImage = null"
+        >
+            <div class="max-w-4xl w-full">
+                <img 
+                    :src="selectedImage" 
+                    alt="Image agrandie" 
+                    class="max-w-full max-h-screen mx-auto object-contain"
+                >
+                <button 
+                    @click="selectedImage = null" 
+                    class="mt-4 block mx-auto bg-yellow-500 text-blue-900 px-4 py-2 rounded-full hover:bg-yellow-400 transition"
+                >
+                    Fermer
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
